@@ -6,27 +6,17 @@ import {
   actualizarOdometroSchema,
   ActualizarOdometroInput,
 } from '@/backend/validators/odometro.schema';
+import { resolverVehiculoId } from '@/backend/services/datos.service';
+import { ActionResponse, handleActionError } from '@/backend/utils/action-response';
+import { Vehiculo } from '@/shared/types/vehiculo.types';
 
-export async function actualizarOdometroAction(input: ActualizarOdometroInput) {
+export async function actualizarOdometroAction(
+  input: ActualizarOdometroInput
+): Promise<ActionResponse<Vehiculo>> {
   try {
     const validado = actualizarOdometroSchema.parse(input);
     const supabase = createClient();
-
-    let targetId = validado.vehiculo_id;
-    const { data: existe } = await supabase
-      .from('vehiculos')
-      .select('id')
-      .eq('id', targetId)
-      .maybeSingle();
-
-    if (!existe) {
-      const { data: vPrincipal } = await supabase
-        .from('vehiculos')
-        .select('id')
-        .limit(1)
-        .maybeSingle();
-      if (vPrincipal) targetId = vPrincipal.id;
-    }
+    const targetId = await resolverVehiculoId(supabase, validado.vehiculo_id);
 
     const { data, error } = await supabase
       .from('vehiculos')
@@ -45,11 +35,8 @@ export async function actualizarOdometroAction(input: ActualizarOdometroInput) {
 
     revalidatePath('/');
     revalidatePath('/mantenimientos');
-    return { success: true, data };
+    return { success: true, data: data as Vehiculo };
   } catch (error) {
-    if (error instanceof Error) {
-      return { success: false, error: error.message };
-    }
-    return { success: false, error: 'Error al actualizar el kilometraje del odómetro.' };
+    return handleActionError(error, 'Error al actualizar el kilometraje del odómetro.');
   }
 }

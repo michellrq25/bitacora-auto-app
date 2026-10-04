@@ -6,8 +6,12 @@ import {
   renovarDocumentoSchema,
   RenovarDocumentoInput,
 } from '@/backend/validators/documento.schema';
+import { ActionResponse, handleActionError } from '@/backend/utils/action-response';
+import { Documento } from '@/shared/types/documento.types';
 
-export async function renovarDocumentoAction(input: RenovarDocumentoInput) {
+export async function renovarDocumentoAction(
+  input: RenovarDocumentoInput
+): Promise<ActionResponse<Documento>> {
   try {
     const validado = renovarDocumentoSchema.parse(input);
     const supabase = createClient();
@@ -41,11 +45,8 @@ export async function renovarDocumentoAction(input: RenovarDocumentoInput) {
 
     revalidatePath('/');
     revalidatePath('/documentos');
-    return { success: true, data };
+    return { success: true, data: data as Documento };
   } catch (error) {
-    if (error instanceof Error) {
-      return { success: false, error: error.message };
-    }
-    return { success: false, error: 'Error al renovar el documento.' };
+    return handleActionError(error, 'Error al renovar el documento.');
   }
 }

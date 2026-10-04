@@ -147,6 +147,40 @@ export async function obtenerVehiculoPrincipal(): Promise<Vehiculo> {
   }
 }
 
+/**
+ * Resuelve el ID del vehículo en la base de datos de manera resiliente.
+ * Si el ID proporcionado existe lo retorna; de lo contrario busca el primer
+ * vehículo registrado o recurre al ID por defecto.
+ */
+export async function resolverVehiculoId(
+  supabase: ReturnType<typeof createClient>,
+  vehiculoId?: string
+): Promise<string> {
+  if (vehiculoId) {
+    const { data: existe } = await supabase
+      .from('vehiculos')
+      .select('id')
+      .eq('id', vehiculoId)
+      .maybeSingle();
+
+    if (existe?.id) {
+      return existe.id;
+    }
+  }
+
+  const { data: vPrincipal } = await supabase
+    .from('vehiculos')
+    .select('id')
+    .limit(1)
+    .maybeSingle();
+
+  if (vPrincipal?.id) {
+    return vPrincipal.id;
+  }
+
+  return DEFAULT_VEHICULO.id;
+}
+
 export async function obtenerDocumentosVehiculo(vehiculoId: string): Promise<DocumentoConEstado[]> {
   try {
     const supabase = createClient();

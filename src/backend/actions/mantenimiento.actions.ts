@@ -6,34 +6,22 @@ import {
   nuevoMantenimientoSchema,
   NuevoMantenimientoInput,
 } from '@/backend/validators/mantenimiento.schema';
+import { resolverVehiculoId } from '@/backend/services/datos.service';
+import { ActionResponse, handleActionError } from '@/backend/utils/action-response';
+import { Mantenimiento } from '@/shared/types/mantenimiento.types';
 
-export async function registrarMantenimientoAction(input: NuevoMantenimientoInput) {
+export async function registrarMantenimientoAction(
+  input: NuevoMantenimientoInput
+): Promise<ActionResponse<Mantenimiento>> {
   try {
     // 1. Validar esquema con Zod
     const validado = nuevoMantenimientoSchema.parse(input);
-
     const supabase = createClient();
 
-    // 1.5 Resolver ID de vehículo real en base de datos
-    let targetVehiculoId = validado.vehiculo_id;
-    const { data: vehiculoExiste } = await supabase
-      .from('vehiculos')
-      .select('id')
-      .eq('id', targetVehiculoId)
-      .maybeSingle();
+    // 2. Resolver ID de vehículo real en base de datos
+    const targetVehiculoId = await resolverVehiculoId(supabase, validado.vehiculo_id);
 
-    if (!vehiculoExiste) {
-      const { data: vPrincipal } = await supabase
-        .from('vehiculos')
-        .select('id')
-        .limit(1)
-        .maybeSingle();
-      if (vPrincipal) {
-        targetVehiculoId = vPrincipal.id;
-      }
-    }
-
-    // 2. Insertar registro en tabla mantenimientos
+    // 3. Insertar registro en tabla mantenimientos
     const { data: nuevoRegistro, error: insertError } = await supabase
       .from('mantenimientos')
       .insert({
@@ -60,7 +48,7 @@ export async function registrarMantenimientoAction(input: NuevoMantenimientoInpu
       return { success: false, error: insertError.message };
     }
 
-    // 3. Regla de Negocio: Si el kilometraje registrado es mayor al actual, actualizar odómetro
+    // 4. Regla de Negocio: Si el kilometraje registrado es mayor al actual, sincronizar odómetro
     const { data: vehiculo } = await supabase
       .from('vehiculos')
       .select('kilometraje_actual')
@@ -77,15 +65,12 @@ export async function registrarMantenimientoAction(input: NuevoMantenimientoInpu
         .eq('id', targetVehiculoId);
     }
 
-    // 4. Revalidar vistas afectadas
+    // 5. Revalidar vistas afectadas
     revalidatePath('/');
     revalidatePath('/mantenimientos');
 
-    return { success: true, data: nuevoRegistro };
+    return { success: true, data: nuevoRegistro as Mantenimiento };
   } catch (error) {
-    if (error instanceof Error) {
-      return { success: false, error: error.message };
-    }
-    return { success: false, error: 'Ocurrió un error inesperado al registrar el servicio.' };
+    return handleActionError(error, 'Ocurrió un error inesperado al registrar el servicio.');
   }
 }

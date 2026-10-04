@@ -110,20 +110,20 @@ export default function NuevoMantenimientoPage() {
       <div className="flex items-center gap-3 mb-5">
         <Link
           href="/mantenimientos"
-          className="rounded-xl border border-slate-800 bg-slate-900 p-2 text-slate-400 hover:text-white transition-colors"
+          className="rounded-xl border-2 border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 text-slate-700 dark:text-slate-400 hover:text-blue-600 transition-colors shadow-xs"
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-white">Registrar Mantenimiento</h1>
-          <p className="text-xs text-slate-400">Control de bitácora y lubricantes</p>
+          <h1 className="text-xl font-black text-slate-900 dark:text-white">Registrar Mantenimiento</h1>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">Control de bitácora y lubricantes</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Categoría Selector (Chips Móviles) */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+          <label className="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-400 mb-2">
             Categoría del Servicio
           </label>
           <div className="grid grid-cols-2 gap-2">
@@ -134,16 +134,18 @@ export default function NuevoMantenimientoPage() {
                   key={cat.id}
                   type="button"
                   onClick={() => setCategoria(cat.id)}
-                  className={`flex items-center gap-2 rounded-xl border p-2.5 text-xs font-semibold text-left transition-all ${
+                  className={`flex items-center gap-2 rounded-xl border-2 px-3 py-2.5 text-left transition-all min-h-[50px] ${
                     isSelected
-                      ? 'border-sky-500 bg-sky-500/15 text-white ring-1 ring-sky-500'
-                      : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200'
+                      ? 'border-blue-600 bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                      : 'border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-400 hover:border-slate-400'
                   }`}
                 >
-                  <span className={isSelected ? 'text-sky-400' : 'text-slate-400'}>
+                  <span className={`text-lg leading-none shrink-0 ${isSelected ? 'text-white' : 'text-slate-400'}`}>
                     •
                   </span>
-                  <span className="line-clamp-1">{cat.label}</span>
+                  <span className="text-[13px] font-bold leading-tight whitespace-normal">
+                    {cat.label}
+                  </span>
                 </button>
               );
             })}
@@ -151,14 +153,14 @@ export default function NuevoMantenimientoPage() {
         </div>
 
         {/* Tipo de Mantenimiento (Preventivo vs Correctivo) */}
-        <div className="flex rounded-xl bg-slate-900/90 p-1 border border-slate-800">
+        <div className="flex rounded-xl bg-slate-100 dark:bg-slate-900/90 p-1 border-2 border-slate-300 dark:border-slate-800 shadow-xs">
           <button
             type="button"
             onClick={() => setTipo('preventivo')}
-            className={`flex-1 rounded-lg py-2 text-xs font-semibold transition-all ${
+            className={`flex-1 rounded-lg py-2.5 text-sm font-black transition-all ${
               tipo === 'preventivo'
-                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white shadow-md border border-emerald-700'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
             }`}
           >
             Preventivo
@@ -166,10 +168,10 @@ export default function NuevoMantenimientoPage() {
           <button
             type="button"
             onClick={() => setTipo('correctivo')}
-            className={`flex-1 rounded-lg py-2 text-xs font-semibold transition-all ${
+            className={`flex-1 rounded-lg py-2.5 text-sm font-black transition-all ${
               tipo === 'correctivo'
-                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30 shadow'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-rose-600 text-white shadow-md border border-rose-700'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
             }`}
           >
             Correctivo
@@ -179,7 +181,7 @@ export default function NuevoMantenimientoPage() {
         {/* Kilometraje y Fecha */}
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
               Kilometraje
             </label>
             <div className="relative">
@@ -189,14 +191,14 @@ export default function NuevoMantenimientoPage() {
                 required
                 value={kilometraje}
                 onChange={(e) => setKilometraje(Number(e.target.value))}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 pl-9 text-sm font-semibold text-white focus:border-sky-500 focus:outline-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2.5 pl-9 text-sm font-black text-slate-900 dark:text-white focus:border-blue-600 focus:outline-none shadow-xs"
               />
-              <Gauge className="absolute left-2.5 top-3 h-4 w-4 text-slate-400" />
+              <Gauge className="absolute left-2.5 top-3 h-4 w-4 text-slate-500" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
               Fecha
             </label>
             <div className="relative">
@@ -205,7 +207,7 @@ export default function NuevoMantenimientoPage() {
                 required
                 value={fecha}
                 onChange={(e) => setFecha(e.target.value)}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-xs text-white focus:border-sky-500 focus:outline-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2.5 text-xs font-bold text-slate-900 dark:text-white focus:border-blue-600 focus:outline-none shadow-xs"
               />
               <Calendar className="hidden sm:block absolute right-2.5 top-3 h-4 w-4 text-slate-500 pointer-events-none" />
             </div>
@@ -214,15 +216,15 @@ export default function NuevoMantenimientoPage() {
 
         {/* SECCIÓN CONDICIONAL: DETALLE TÉCNICO DE ACEITE */}
         {categoria === 'aceite' && (
-          <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-3.5 backdrop-blur-md">
-            <div className="flex items-center gap-2 text-amber-400 font-semibold text-sm border-b border-amber-500/20 pb-2">
-              <Droplets className="h-4 w-4" />
+          <div className="rounded-2xl border-2 border-amber-400/80 dark:border-amber-500/30 bg-amber-50/60 dark:bg-amber-500/5 p-4 space-y-3.5 shadow-xs">
+            <div className="flex items-center gap-2 text-amber-950 dark:text-amber-400 font-black text-sm border-b-2 border-amber-200 dark:border-amber-500/20 pb-2">
+              <Droplets className="h-4 w-4 text-amber-600 dark:text-amber-400" />
               <span>Detalle Técnico de Lubricante</span>
             </div>
 
             {/* Tipo de Aceite (Sintético / Semi / Mineral) */}
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 Tipo de Aceite de Motor
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -231,10 +233,10 @@ export default function NuevoMantenimientoPage() {
                     key={t}
                     type="button"
                     onClick={() => setAceiteTipo(t)}
-                    className={`rounded-xl border py-2 text-center text-xs font-medium capitalize transition-all ${
+                    className={`rounded-xl border-2 py-2.5 text-center text-xs font-black capitalize transition-all ${
                       aceiteTipo === t
-                        ? 'border-amber-400 bg-amber-500/25 text-amber-200 ring-1 ring-amber-400'
-                        : 'border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white'
+                        ? 'border-amber-600 bg-amber-600 text-white shadow-md shadow-amber-500/25'
+                        : 'border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:border-amber-400'
                     }`}
                   >
                     {t.replace('-', ' ')}
@@ -246,13 +248,13 @@ export default function NuevoMantenimientoPage() {
             {/* Viscosidad y Marca */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                   Viscosidad SAE
                 </label>
                 <select
                   value={aceiteViscosidad}
                   onChange={(e) => setAceiteViscosidad(e.target.value as ViscosidadAceite)}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs font-mono font-bold text-amber-300 focus:border-amber-400 focus:outline-none"
+                  className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono font-black text-slate-900 dark:text-amber-300 focus:border-amber-500 focus:outline-none shadow-xs"
                 >
                   {VISCOSIDADES_ACEITE.map((visc) => (
                     <option key={visc} value={visc}>
@@ -263,7 +265,7 @@ export default function NuevoMantenimientoPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                   Marca de Lubricante
                 </label>
                 <select
@@ -276,7 +278,7 @@ export default function NuevoMantenimientoPage() {
                       setAceiteMarca(val);
                     }
                   }}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs font-bold text-amber-300 focus:border-amber-400 focus:outline-none"
+                  className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2 text-xs font-bold text-slate-900 dark:text-amber-300 focus:border-amber-500 focus:outline-none shadow-xs"
                 >
                   {MARCAS_LUBRICANTES.map((m) => (
                     <option key={m} value={m}>
@@ -291,7 +293,7 @@ export default function NuevoMantenimientoPage() {
             {/* Si seleccionó 'Otra marca', mostrar campo de texto para escribirla */}
             {(!MARCAS_LUBRICANTES.includes(aceiteMarca) || aceiteMarca === '') && (
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                   Escribir Nombre de Marca Personalizada
                 </label>
                 <input
@@ -300,13 +302,13 @@ export default function NuevoMantenimientoPage() {
                   value={aceiteMarca}
                   onChange={(e) => setAceiteMarca(e.target.value)}
                   placeholder="Ej. Ravenol, Amsoil, Petronas, etc."
-                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-amber-400 focus:outline-none"
+                  className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 focus:border-amber-500 focus:outline-none shadow-xs"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Línea / Modelo de Aceite
               </label>
               <input
@@ -314,29 +316,29 @@ export default function NuevoMantenimientoPage() {
                 value={aceiteModelo}
                 onChange={(e) => setAceiteModelo(e.target.value)}
                 placeholder="Ej. 8100 X-cess Gen2 / Helix Ultra"
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-amber-400 focus:outline-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 focus:border-amber-500 focus:outline-none shadow-xs"
               />
             </div>
 
             {/* Banner de Proyección Automática */}
-            <div className="flex items-start gap-2 rounded-xl bg-amber-950/30 border border-amber-500/20 p-2.5 text-xs text-amber-200">
-              <Sparkles className="h-4 w-4 shrink-0 text-amber-400 mt-0.5" />
+            <div className="flex items-start gap-2.5 rounded-xl bg-amber-100/80 dark:bg-amber-950/40 border-2 border-amber-400 dark:border-amber-500/40 p-3 text-xs shadow-xs">
+              <Sparkles className="h-4 w-4 shrink-0 text-amber-700 dark:text-amber-400 mt-0.5" />
               <div>
-                <span className="font-semibold">Sugerencia inteligente: </span>
-                {reglaTexto}
+                <span className="font-black text-amber-950 dark:text-amber-200">Sugerencia inteligente: </span>
+                <span className="font-bold text-amber-900 dark:text-amber-100">{reglaTexto}</span>
               </div>
             </div>
           </div>
         )}
 
         {/* Próximo Servicio Proyectado */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 space-y-3">
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <div className="rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 space-y-3 shadow-xs">
+          <label className="block text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-400">
             Programación de Próximo Servicio
           </label>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs text-slate-300 mb-1">Próximo en Km</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Próximo en Km</label>
               <input
                 type="number"
                 min="0"
@@ -345,16 +347,16 @@ export default function NuevoMantenimientoPage() {
                   setProximoKm(e.target.value === '' ? '' : Number(e.target.value))
                 }
                 placeholder="Ej. 55000"
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs font-mono font-semibold text-sky-400 focus:border-sky-500 focus:outline-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2 text-xs font-mono font-black text-blue-700 dark:text-sky-400 focus:border-blue-600 focus:outline-none shadow-xs"
               />
             </div>
             <div>
-              <label className="block text-xs text-slate-300 mb-1">Fecha sugerida</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Fecha sugerida</label>
               <input
                 type="date"
                 value={proximaFecha}
                 onChange={(e) => setProximaFecha(e.target.value)}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-slate-200 focus:border-sky-500 focus:outline-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-200 focus:border-blue-600 focus:outline-none shadow-xs"
               />
             </div>
           </div>
@@ -363,7 +365,7 @@ export default function NuevoMantenimientoPage() {
         {/* Costo, Taller y Notas */}
         <div className="space-y-3">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
               Costo Total (Soles)
             </label>
             <div className="relative">
@@ -374,16 +376,16 @@ export default function NuevoMantenimientoPage() {
                 required
                 value={costo}
                 onChange={(e) => setCosto(e.target.value)}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 pl-9 text-base font-bold text-white focus:border-sky-500 focus:outline-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2.5 pl-10 text-base font-black text-slate-900 dark:text-white focus:border-blue-600 focus:outline-none shadow-xs"
               />
-              <span className="absolute left-3 top-2.5 text-sm font-bold text-slate-400">
+              <span className="absolute left-3.5 top-2.5 text-sm font-black text-blue-600 dark:text-slate-400">
                 S/
               </span>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
               Taller / Lubricentro (Opcional)
             </label>
             <div className="relative">
@@ -392,14 +394,14 @@ export default function NuevoMantenimientoPage() {
                 value={taller}
                 onChange={(e) => setTaller(e.target.value)}
                 placeholder="Ej. Lubricentro Express Surquillo"
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 pl-9 text-xs text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3 py-2.5 pl-9 text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:border-blue-600 focus:outline-none shadow-xs"
               />
-              <Store className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+              <Store className="absolute left-3 top-3 h-4 w-4 text-slate-500" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
               Notas Adicionales (Opcional)
             </label>
             <div className="relative">
@@ -408,14 +410,14 @@ export default function NuevoMantenimientoPage() {
                 value={notas}
                 onChange={(e) => setNotas(e.target.value)}
                 placeholder="Ej. Se cambió filtro de aire y arandela de cárter..."
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 text-xs text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none resize-none"
+                className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 p-3 text-xs font-semibold text-slate-900 dark:text-white placeholder-slate-400 focus:border-blue-600 focus:outline-none resize-none shadow-xs"
               />
             </div>
           </div>
         </div>
 
         {error && (
-          <div className="rounded-xl border border-rose-500/40 bg-rose-950/30 p-3 text-xs text-rose-300">
+          <div className="rounded-xl border-2 border-rose-300 bg-rose-50 p-3 text-xs font-bold text-rose-900 shadow-xs">
             {error}
           </div>
         )}
@@ -423,13 +425,13 @@ export default function NuevoMantenimientoPage() {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 py-3 text-sm font-bold text-white shadow-lg shadow-sky-500/25 hover:from-sky-400 hover:to-blue-500 active:scale-95 transition-all disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-sky-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 py-3 text-sm font-black text-white shadow-lg shadow-blue-500/30 active:scale-95 transition-all disabled:opacity-50 cursor-pointer"
         >
           {isPending ? (
             <Loader2 className="h-5 w-5 animate-spin" />
           ) : (
             <>
-              <Check className="h-5 w-5" />
+              <Check className="h-5 w-5 stroke-[2.5]" />
               Guardar en Bitácora
             </>
           )}

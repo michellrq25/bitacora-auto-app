@@ -127,31 +127,31 @@ export default async function HomePage() {
         <div className="grid grid-cols-2 gap-3 pt-1">
           <Link
             href="/mantenimientos/nuevo"
-            className="group flex flex-col justify-between rounded-2xl border border-sky-500/30 bg-gradient-to-b from-sky-500/15 to-blue-600/5 p-4 transition-all hover:border-sky-500 active:scale-95 shadow-md"
+            className="group quick-action-card quick-action-servicio flex flex-col justify-between rounded-2xl border-2 border-sky-300 dark:border-sky-500/30 bg-white dark:bg-slate-900 p-4 transition-all hover:border-sky-500 active:scale-95 shadow-xs hover:shadow-md"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/20 text-sky-400">
-              <PlusCircle className="h-5 w-5" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-300 dark:border-sky-500/30 shadow-xs">
+              <PlusCircle className="h-5 w-5 stroke-[2.2]" />
             </div>
             <div className="mt-3">
-              <h4 className="text-sm font-bold text-white group-hover:text-sky-300">
+              <h4 className="text-sm font-black text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300">
                 Registrar Servicio
               </h4>
-              <p className="text-[11px] text-slate-400">Aceite, filtros o frenos</p>
+              <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Aceite, filtros o frenos</p>
             </div>
           </Link>
 
           <Link
             href="/documentos"
-            className="group flex flex-col justify-between rounded-2xl border border-purple-500/30 bg-gradient-to-b from-purple-500/15 to-indigo-600/5 p-4 transition-all hover:border-purple-500 active:scale-95 shadow-md"
+            className="group quick-action-card quick-action-documentos flex flex-col justify-between rounded-2xl border-2 border-purple-300 dark:border-purple-500/30 bg-white dark:bg-slate-900 p-4 transition-all hover:border-purple-500 active:scale-95 shadow-xs hover:shadow-md"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/20 text-purple-400">
-              <ShieldCheck className="h-5 w-5" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-300 dark:border-purple-500/30 shadow-xs">
+              <ShieldCheck className="h-5 w-5 stroke-[2.2]" />
             </div>
             <div className="mt-3">
-              <h4 className="text-sm font-bold text-white group-hover:text-purple-300">
+              <h4 className="text-sm font-black text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300">
                 SOAT & Brevete
               </h4>
-              <p className="text-[11px] text-slate-400">Control de vigencias</p>
+              <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Control de vigencias</p>
             </div>
           </Link>
         </div>

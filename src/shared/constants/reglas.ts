@@ -40,7 +40,7 @@ export const CATEGORIAS_MANTENIMIENTO: {
   { id: 'neumaticos', label: 'Neumáticos / Rotación', icon: 'Disc' },
   { id: 'bateria', label: 'Batería y Eléctrico', icon: 'Zap' },
   { id: 'refrigeracion', label: 'Refrigeración / Radiador', icon: 'Thermometer' },
-  { id: 'general', label: 'Inspección General / Otro', icon: 'Wrench' },
+  { id: 'general', label: 'Inspección General', icon: 'Wrench' },
 ];
 
 export const VISCOSIDADES_ACEITE: ViscosidadAceite[] = [

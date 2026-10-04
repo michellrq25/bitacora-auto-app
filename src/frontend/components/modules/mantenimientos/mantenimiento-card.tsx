@@ -128,20 +128,20 @@ export function MantenimientoCard({ item }: MantenimientoCardProps) {
 
       {/* Detalle técnico de lubricante (si corresponde a Aceite) */}
       {isAceite && (item.aceite_marca || item.aceite_viscosidad) && (
-        <div className="mt-3 rounded-xl border-2 border-amber-300 dark:border-amber-500/25 bg-amber-50/80 dark:bg-gradient-to-r dark:from-amber-500/10 dark:via-amber-500/5 dark:to-transparent p-2.5 shadow-xs">
+        <div className="mantenimiento-aceite-detalle mt-3 rounded-xl border-2 border-amber-300 dark:border-amber-500/35 bg-amber-50/90 dark:bg-slate-900/90 p-2.5 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-            <span className="font-extrabold text-amber-950 dark:text-amber-300 flex items-center gap-1.5">
+            <span className="mantenimiento-aceite-titulo font-black text-amber-950 dark:text-amber-300 flex items-center gap-1.5">
               <Droplets className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
               {item.aceite_marca} {item.aceite_modelo || ''}
             </span>
             <div className="flex items-center gap-1.5">
               {item.aceite_viscosidad && (
-                <span className="aceite-viscosidad-badge rounded-md bg-amber-100 dark:bg-amber-500/20 border border-amber-400 dark:border-amber-500/30 px-2 py-0.5 font-mono font-black text-amber-950 dark:text-amber-200 text-xs shadow-xs">
+                <span className="aceite-viscosidad-badge rounded-md bg-amber-100 dark:bg-amber-500/20 border border-amber-400 dark:border-amber-500/40 px-2 py-0.5 font-mono font-black text-amber-950 dark:text-amber-200 text-xs shadow-xs">
                   {item.aceite_viscosidad}
                 </span>
               )}
               {item.aceite_tipo && (
-                <span className="aceite-tipo-badge rounded-md bg-sky-100 dark:bg-slate-800/90 border border-sky-400 dark:border-slate-700 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-sky-950 dark:text-sky-300 shadow-xs">
+                <span className="aceite-tipo-badge rounded-md bg-sky-100 dark:bg-sky-500/20 border border-sky-400 dark:border-sky-500/40 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-sky-950 dark:text-sky-300 shadow-xs">
                   {item.aceite_tipo}
                 </span>
               )}
@@ -169,19 +169,21 @@ export function MantenimientoCard({ item }: MantenimientoCardProps) {
 
       {/* Próximo Servicio Programado */}
       {(item.proximo_servicio_km || item.proximo_servicio_fecha) && (
-        <div className="mt-3 flex items-center justify-between rounded-xl bg-gradient-to-r from-sky-950/40 to-slate-950/50 px-3 py-2 text-xs border border-sky-500/25">
-          <span className="text-sky-300/90 flex items-center gap-1.5 font-medium">
-            <ArrowRight className="h-3.5 w-3.5 text-sky-400" />
+        <div className="mantenimiento-proximo-servicio mt-3 flex items-center justify-between rounded-xl bg-gradient-to-r from-sky-950/40 to-slate-950/50 px-3 py-2 text-xs border border-sky-500/25">
+          <span className="mantenimiento-proximo-label text-sky-800 dark:text-sky-300 flex items-center gap-1.5 font-bold">
+            <ArrowRight className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400 stroke-[2.5]" />
             Próximo servicio:
           </span>
-          <div className="flex items-center gap-2 font-medium">
+          <div className="flex items-center gap-2 font-bold">
             {item.proximo_servicio_km && (
-              <span className="text-sky-300 font-mono font-bold">
+              <span className="mantenimiento-proximo-km text-sky-950 dark:text-sky-300 font-mono font-black">
                 {item.proximo_servicio_km.toLocaleString('es-PE')} km
               </span>
             )}
             {item.proximo_servicio_fecha && (
-              <span className="text-slate-400 text-[11px]">({item.proximo_servicio_fecha})</span>
+              <span className="mantenimiento-proximo-fecha text-slate-600 dark:text-slate-400 text-[11px] font-semibold">
+                ({item.proximo_servicio_fecha})
+              </span>
             )}
           </div>
         </div>

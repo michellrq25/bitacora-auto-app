@@ -31,14 +31,14 @@ export function DashboardClientView({
   return (
     <>
       {/* Tarjeta Hero Principal: Odómetro del Auto */}
-      <div className="relative overflow-hidden rounded-3xl border border-sky-500/30 bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/40 p-5 shadow-2xl backdrop-blur-xl">
+      <div className="dashboard-odometro-hero relative overflow-hidden rounded-3xl border border-sky-500/30 bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/40 p-5 shadow-2xl backdrop-blur-xl">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <span className="text-[11px] font-bold uppercase tracking-widest text-sky-400">
               Odómetro Digital
             </span>
             <div className="flex items-baseline gap-2">
-              <span className="font-mono text-3xl sm:text-4xl font-black tracking-tight text-white">
+              <span className="dashboard-odometro-numero font-mono text-3xl sm:text-4xl font-black tracking-tight text-white dark:text-white">
                 {vehiculo.kilometraje_actual.toLocaleString('es-PE')}
               </span>
               <span className="text-sm font-bold text-sky-400">km</span>
@@ -61,7 +61,7 @@ export function DashboardClientView({
             <div className="flex items-center gap-2 text-xs">
               <Gauge className="h-4 w-4 text-slate-400" />
               <span className="text-slate-400">Próximo servicio:</span>
-              <span className="font-mono font-bold text-white">
+              <span className="dashboard-odometro-proximo-km font-mono font-bold text-white dark:text-white">
                 {ultimoMantenimiento.proximo_servicio_km.toLocaleString('es-PE')} km
               </span>
             </div>
@@ -85,8 +85,8 @@ export function DashboardClientView({
       </div>
 
       {/* Métricas Secundarias */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+      <div className="grid grid-cols-2 gap-3 dashboard-metricas-grid">
+        <div className="dashboard-metrica-inversion rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-400">Inversión Total</span>
             <div className="rounded-lg bg-emerald-500/10 p-1.5 text-emerald-400 border border-emerald-500/20">
@@ -99,7 +99,7 @@ export function DashboardClientView({
           <span className="text-[10px] text-slate-400">En bitácora vehicular</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+        <div className="dashboard-metrica-aceite rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-400">Último Aceite</span>
             <div className="rounded-lg bg-amber-500/10 p-1.5 text-amber-400">

@@ -50,21 +50,21 @@ export function DocumentosClientView({ documentosIniciales }: DocumentosClientVi
   return (
     <div className="space-y-4">
       {/* Botón de Tabs Mobile */}
-      <div className="flex rounded-2xl bg-slate-900/90 p-1.5 border border-slate-800">
+      <div className="documentos-tabs-nav flex rounded-xl bg-slate-200/80 dark:bg-slate-900/90 p-1 border border-slate-300 dark:border-slate-800 shadow-xs">
         <button
           onClick={() => setTab('auto')}
-          className={`flex-1 flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
+          className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black transition-all whitespace-nowrap ${
             tab === 'auto'
-              ? 'bg-sky-500 text-slate-950 shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'tab-auto-active bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs border border-blue-400/40'
+              : 'tab-inactive text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-bold hover:bg-white/50 dark:hover:bg-slate-800/50'
           }`}
         >
-          <Car className="h-4 w-4" />
+          <Car className="h-3.5 w-3.5 shrink-0" />
           <span>Vehículo (SOAT / CITV)</span>
           {criticosAuto > 0 && (
             <span
-              className={`h-2 w-2 rounded-full ${
-                tab === 'auto' ? 'bg-rose-900' : 'bg-rose-500 animate-ping'
+              className={`h-2 w-2 rounded-full shrink-0 ${
+                tab === 'auto' ? 'bg-amber-300 border border-blue-700' : 'bg-rose-500 animate-ping'
               }`}
             />
           )}
@@ -72,37 +72,37 @@ export function DocumentosClientView({ documentosIniciales }: DocumentosClientVi
 
         <button
           onClick={() => setTab('conductor')}
-          className={`flex-1 flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold transition-all ${
+          className={`flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-black transition-all whitespace-nowrap ${
             tab === 'conductor'
-              ? 'bg-purple-500 text-slate-950 shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'tab-conductor-active bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-xs border border-purple-400/40'
+              : 'tab-inactive text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-bold hover:bg-white/50 dark:hover:bg-slate-800/50'
           }`}
         >
-          <User className="h-4 w-4" />
+          <User className="h-3.5 w-3.5 shrink-0" />
           <span>Conductor (Brevete)</span>
           {criticosConductor > 0 && (
             <span
-              className={`h-2 w-2 rounded-full ${
-                tab === 'conductor' ? 'bg-rose-900' : 'bg-rose-500 animate-ping'
+              className={`h-2 w-2 rounded-full shrink-0 ${
+                tab === 'conductor' ? 'bg-amber-300 border border-purple-700' : 'bg-rose-500 animate-ping'
               }`}
             />
           )}
         </button>
       </div>
 
-      {/* Explicación de Semáforo de Reglas Peruanas */}
-      <div className="flex items-center justify-around rounded-xl bg-slate-900/40 p-2 text-[11px] text-slate-400 border border-slate-800/80">
-        <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          Vigente (&gt;30d)
+      {/* Explicación de Semáforo de Reglas Peruanas en UNA SOLA LÍNEA SIN '...' */}
+      <div className="documentos-reglas-leyenda flex items-center justify-between gap-1 rounded-xl bg-white dark:bg-slate-900/70 p-1 border border-slate-200 dark:border-slate-800 shadow-xs">
+        <span className="flex-1 flex items-center justify-center gap-1 font-extrabold text-[9.5px] sm:text-[11px] py-1 px-1 rounded-lg bg-emerald-100/80 dark:bg-emerald-500/10 text-emerald-950 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/20 whitespace-nowrap">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+          <span>Vigente (&gt;30d)</span>
         </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-amber-400" />
-          Por vencer (1-30d)
+        <span className="flex-[1.25] flex items-center justify-center gap-1 font-extrabold text-[9.5px] sm:text-[11px] py-1 px-1 rounded-lg bg-amber-100/80 dark:bg-amber-500/10 text-amber-950 dark:text-amber-300 border border-amber-300 dark:border-amber-500/20 whitespace-nowrap">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse shrink-0" />
+          <span>Por vencer (1-30d)</span>
         </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-rose-500" />
-          Vencido (≤0d)
+        <span className="flex-1 flex items-center justify-center gap-1 font-extrabold text-[9.5px] sm:text-[11px] py-1 px-1 rounded-lg bg-rose-100/80 dark:bg-rose-500/10 text-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-500/20 whitespace-nowrap">
+          <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse shrink-0" />
+          <span>Vencido (≤0d)</span>
         </span>
       </div>
 
@@ -121,18 +121,18 @@ export function DocumentosClientView({ documentosIniciales }: DocumentosClientVi
       </div>
 
       {/* Card de Notificaciones a Telegram */}
-      <div className="rounded-2xl border border-sky-500/20 bg-sky-950/20 p-4 space-y-2 mt-6">
-        <div className="flex items-center gap-2 text-sky-400 text-xs font-bold">
-          <BellRing className="h-4 w-4" />
+      <div className="rounded-2xl border-2 border-sky-300 dark:border-sky-500/20 bg-sky-50/80 dark:bg-sky-950/20 p-4 space-y-2 mt-6 shadow-sm">
+        <div className="flex items-center gap-2 text-sky-900 dark:text-sky-400 text-xs font-black">
+          <BellRing className="h-4 w-4 text-sky-600 dark:text-sky-400" />
           <span>Notificaciones Diarias a Telegram (Cron 13:00 UTC)</span>
         </div>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-600 dark:text-slate-400">
           El bot despachará automáticamente alertas formateadas a las 8:00 AM hora de Lima si algún documento está por vencer o si el odómetro se acerca al servicio.
         </p>
         <button
           onClick={handleProbarTelegram}
           disabled={enviandoTelegram}
-          className="mt-2 inline-flex items-center gap-1.5 rounded-xl border border-sky-500/40 bg-sky-500/10 px-3.5 py-2 text-xs font-semibold text-sky-300 hover:bg-sky-500/20 active:scale-95 transition-all disabled:opacity-50"
+          className="mt-2 inline-flex items-center gap-1.5 rounded-xl border border-sky-400 dark:border-sky-500/40 bg-sky-100 hover:bg-sky-200 dark:bg-sky-500/10 dark:hover:bg-sky-500/20 px-3.5 py-2 text-xs font-bold text-sky-900 dark:text-sky-300 active:scale-95 transition-all disabled:opacity-50"
         >
           {enviandoTelegram ? (
             <>
@@ -148,7 +148,7 @@ export function DocumentosClientView({ documentosIniciales }: DocumentosClientVi
         </button>
 
         {telegramStatus && (
-          <p className="text-xs text-amber-300 mt-2 font-medium bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+          <p className="text-xs text-slate-900 dark:text-amber-300 mt-2 font-semibold bg-white dark:bg-slate-900/80 p-2.5 rounded-lg border border-slate-300 dark:border-slate-800 shadow-xs">
             {telegramStatus}
           </p>
         )}

@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   ChevronRight,
   TrendingUp,
+  Eye,
 } from 'lucide-react';
 import { obtenerEstadoGeneralApp } from '@/backend/services/datos.service';
 import { Header } from '@/frontend/components/layout/header';
@@ -28,9 +29,11 @@ export default async function HomePage() {
     ultimoMantenimiento,
   } = await obtenerEstadoGeneralApp();
 
+  const totalAlertas = docsCriticos.length + (alertaKm.tieneAlerta ? 1 : 0);
+
   return (
     <div className="min-h-screen bg-slate-950 pb-28 text-slate-100">
-      <Header vehiculo={vehiculo} />
+      <Header vehiculo={vehiculo} alertasCount={totalAlertas} />
 
       <main className="mx-auto max-w-md px-4 py-4 space-y-4">
         {/* Odómetro interactivo y métricas clave */}
@@ -52,44 +55,69 @@ export default async function HomePage() {
 
             <div className="space-y-2 text-xs">
               {alertaKm.tieneAlerta && (
-                <div className="flex items-center justify-between rounded-xl bg-slate-900/80 p-2.5 border border-amber-500/20">
-                  <span className="text-amber-200">{alertaKm.mensaje}</span>
-                  <Link
-                    href="/mantenimientos/nuevo"
-                    className="font-semibold text-sky-400 hover:underline"
-                  >
-                    Atender
-                  </Link>
-                </div>
+                <Link
+                  href="/mantenimientos/nuevo"
+                  className="group block rounded-xl bg-slate-900/90 hover:bg-slate-800/90 p-3 border border-amber-500/30 hover:border-amber-400/50 transition-all shadow-sm active:scale-[0.99]"
+                >
+                  <div className="flex items-start justify-between gap-2.5">
+                    <div className="flex items-start gap-2 flex-1 min-w-0">
+                      <span className="h-2.5 w-2.5 rounded-full mt-1 shrink-0 bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                      <span className="text-amber-200 text-xs font-semibold group-hover:text-white transition-colors leading-snug">
+                        {alertaKm.mensaje}
+                      </span>
+                    </div>
+
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-amber-500/15 group-hover:bg-amber-500/25 px-2.5 py-1 text-[11px] font-bold text-amber-300 border border-amber-500/30 transition-all shrink-0">
+                      <Wrench className="h-3 w-3" />
+                      <span>Atender</span>
+                    </span>
+                  </div>
+                </Link>
               )}
 
               {docsCriticos.map((doc) => (
-                <div
+                <Link
                   key={doc.id}
-                  className="flex items-center justify-between rounded-xl bg-slate-900/80 p-2.5 border border-slate-800"
+                  href="/documentos"
+                  className="group block rounded-xl bg-slate-900/90 hover:bg-slate-800/90 p-3 border border-slate-800/90 hover:border-sky-500/40 transition-all shadow-sm active:scale-[0.99]"
                 >
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`h-2 w-2 rounded-full ${
-                        doc.estado_semaforo === 'rojo'
-                          ? 'bg-rose-500'
-                          : 'bg-amber-400'
-                      }`}
-                    />
-                    <span className="font-medium text-slate-200">
-                      {doc.nombre_identificador}
+                  <div className="flex items-start justify-between gap-2.5">
+                    <div className="flex items-start gap-2 flex-1 min-w-0">
+                      <span
+                        className={`h-2.5 w-2.5 rounded-full mt-1 shrink-0 ${
+                          doc.estado_semaforo === 'rojo'
+                            ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]'
+                            : 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]'
+                        }`}
+                      />
+                      <span className="font-semibold text-slate-100 text-xs group-hover:text-white transition-colors leading-snug">
+                        {doc.nombre_identificador}
+                      </span>
+                    </div>
+
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-sky-500/10 group-hover:bg-sky-500/20 px-2.5 py-1 text-[11px] font-bold text-sky-400 border border-sky-500/25 transition-all shrink-0">
+                      <Eye className="h-3 w-3" />
+                      <span>Ver</span>
                     </span>
                   </div>
-                  <span
-                    className={`font-semibold ${
-                      doc.estado_semaforo === 'rojo'
-                        ? 'text-rose-400'
-                        : 'text-amber-300'
-                    }`}
-                  >
-                    {doc.estado_etiqueta}
-                  </span>
-                </div>
+
+                  <div className="mt-2 pl-4 flex items-center justify-between text-xs">
+                    <span
+                      className={`font-semibold whitespace-nowrap ${
+                        doc.estado_semaforo === 'rojo'
+                          ? 'text-rose-400'
+                          : 'text-amber-300'
+                      }`}
+                    >
+                      {doc.estado_etiqueta}
+                    </span>
+                    {doc.fecha_vencimiento && (
+                      <span className="text-[11px] text-slate-400 font-mono">
+                        Vence: {doc.fecha_vencimiento}
+                      </span>
+                    )}
+                  </div>
+                </Link>
               ))}
             </div>
           </div>

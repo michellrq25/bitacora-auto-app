@@ -128,20 +128,20 @@ export function MantenimientoCard({ item }: MantenimientoCardProps) {
 
       {/* Detalle técnico de lubricante (si corresponde a Aceite) */}
       {isAceite && (item.aceite_marca || item.aceite_viscosidad) && (
-        <div className="mt-3 rounded-xl border border-amber-500/25 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-2.5">
+        <div className="mt-3 rounded-xl border-2 border-amber-300 dark:border-amber-500/25 bg-amber-50/80 dark:bg-gradient-to-r dark:from-amber-500/10 dark:via-amber-500/5 dark:to-transparent p-2.5 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-            <span className="font-bold text-amber-300 flex items-center gap-1.5">
-              <Droplets className="h-3.5 w-3.5 text-amber-400" />
+            <span className="font-extrabold text-amber-950 dark:text-amber-300 flex items-center gap-1.5">
+              <Droplets className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
               {item.aceite_marca} {item.aceite_modelo || ''}
             </span>
             <div className="flex items-center gap-1.5">
               {item.aceite_viscosidad && (
-                <span className="rounded-md bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 font-mono font-bold text-amber-200 text-xs">
+                <span className="aceite-viscosidad-badge rounded-md bg-amber-100 dark:bg-amber-500/20 border border-amber-400 dark:border-amber-500/30 px-2 py-0.5 font-mono font-black text-amber-950 dark:text-amber-200 text-xs shadow-xs">
                   {item.aceite_viscosidad}
                 </span>
               )}
               {item.aceite_tipo && (
-                <span className="rounded-md bg-slate-800/90 border border-slate-700 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-300">
+                <span className="aceite-tipo-badge rounded-md bg-sky-100 dark:bg-slate-800/90 border border-sky-400 dark:border-slate-700 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-sky-950 dark:text-sky-300 shadow-xs">
                   {item.aceite_tipo}
                 </span>
               )}

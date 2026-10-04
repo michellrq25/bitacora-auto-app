@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 interface BottomSheetModalProps {
@@ -16,6 +17,12 @@ export function BottomSheetModal({
   title,
   children,
 }: BottomSheetModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -27,21 +34,22 @@ export function BottomSheetModal({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-sm transition-opacity sm:items-center p-0 sm:p-4">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/80 backdrop-blur-sm sm:items-center p-0 sm:p-4">
       {/* Click outside backdrop */}
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Modal / Sheet container */}
-      <div className="relative z-10 w-full max-w-lg rounded-t-3xl sm:rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-2xl transition-transform max-h-[90vh] overflow-y-auto">
+      <div className="relative z-10 w-full max-w-md rounded-t-3xl sm:rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-2xl max-h-[90vh] overflow-y-auto pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:pb-5">
         {/* Grab bar on mobile */}
         <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-slate-700 sm:hidden" />
 
         <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-          <h3 className="text-lg font-semibold text-white">{title}</h3>
+          <h3 className="text-lg font-bold text-white tracking-tight">{title}</h3>
           <button
+            type="button"
             onClick={onClose}
             className="rounded-full p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
             aria-label="Cerrar modal"
@@ -52,6 +60,7 @@ export function BottomSheetModal({
 
         <div className="mt-4">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

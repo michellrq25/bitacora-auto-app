@@ -22,6 +22,13 @@ export function QuickOdometroModal({
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setKm(kilometrajeActual);
+      setError(null);
+    }
+  }, [isOpen, kilometrajeActual]);
+
   const handleGuardar = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);

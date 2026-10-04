@@ -12,7 +12,7 @@ export default async function DocumentosPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 pb-28 text-slate-100">
-      <div className="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-md items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <Link
@@ -30,7 +30,7 @@ export default async function DocumentosPage() {
             <ShieldCheck className="h-5 w-5" />
           </div>
         </div>
-      </div>
+      </header>
 
       <main className="mx-auto max-w-md px-4 py-4 space-y-4">
         <DocumentosClientView documentosIniciales={documentos} />

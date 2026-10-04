@@ -10,16 +10,16 @@ interface BadgeSemaforoProps {
 export function BadgeSemaforo({ estado, texto, size = 'md' }: BadgeSemaforoProps) {
   const configs = {
     verde: {
-      bg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-      dot: 'bg-emerald-400 animate-pulse',
+      bg: 'badge-semaforo-verde bg-emerald-100 dark:bg-emerald-500/15 text-emerald-950 dark:text-emerald-300 border-2 border-emerald-400 dark:border-emerald-500/30 font-bold shadow-xs',
+      dot: 'bg-emerald-600 dark:bg-emerald-400 animate-pulse',
     },
     amarillo: {
-      bg: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
-      dot: 'bg-amber-400 animate-pulse',
+      bg: 'badge-semaforo-amarillo bg-amber-100 dark:bg-amber-500/15 text-amber-950 dark:text-amber-300 border-2 border-amber-400 dark:border-amber-500/30 font-bold shadow-xs',
+      dot: 'bg-amber-600 dark:bg-amber-400 animate-pulse',
     },
     rojo: {
-      bg: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
-      dot: 'bg-rose-500 animate-ping',
+      bg: 'badge-semaforo-rojo bg-rose-100 dark:bg-rose-500/15 text-rose-950 dark:text-rose-300 border-2 border-rose-400 dark:border-rose-500/30 font-bold shadow-xs',
+      dot: 'bg-rose-600 dark:bg-rose-500 animate-ping',
     },
   };
 

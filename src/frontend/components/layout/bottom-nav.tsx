@@ -75,10 +75,10 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               prefetch
-              className={`flex flex-col items-center gap-1 rounded-xl px-3 py-1.5 transition-all duration-150 active:scale-90 ${
+              className={`bottom-nav-item flex flex-col items-center gap-1 rounded-xl px-3 py-1.5 transition-all duration-150 active:scale-90 ${
                 item.active
-                  ? 'text-sky-400 font-semibold'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bottom-nav-active text-sky-600 dark:text-sky-400 font-bold'
+                  : 'bottom-nav-inactive text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
             >
               <Icon

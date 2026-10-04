@@ -14,7 +14,7 @@ export default async function MantenimientosPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 pb-28 text-slate-100">
-      <div className="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-md items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <Link
@@ -39,19 +39,27 @@ export default async function MantenimientosPage() {
             Nuevo
           </Link>
         </div>
-      </div>
+      </header>
 
       <main className="mx-auto max-w-md px-4 py-4 space-y-4">
         {/* Banner de Gasto Acumulado */}
-        <div className="rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 to-sky-950/30 p-4 shadow-lg flex items-center justify-between">
-          <div>
-            <span className="text-xs font-semibold text-slate-400">Inversión Acumulada</span>
-            <p className="text-2xl font-black text-white">
-              S/ {gastoTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+        <div className="inversion-acumulada-card relative overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 to-sky-950/40 p-4 shadow-xl flex items-center justify-between transition-all">
+          <div className="relative z-10 space-y-1">
+            <span className="inversion-label text-xs font-semibold uppercase tracking-wider text-slate-400 block">
+              Inversión Acumulada
+            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="inversion-currency font-sans text-lg font-bold text-sky-400">S/</span>
+              <p className="inversion-amount font-mono text-3xl font-black tracking-tight text-white">
+                {gastoTotal.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+              </p>
+            </div>
+            <p className="inversion-subtext text-[11px] text-slate-400">
+              Total registrado en bitácora de servicios
             </p>
           </div>
-          <div className="rounded-xl bg-sky-500/10 p-3 text-sky-400 border border-sky-500/20">
-            <Wrench className="h-5 w-5" />
+          <div className="inversion-icon-box relative z-10 rounded-2xl bg-sky-500/15 p-3.5 text-sky-400 border border-sky-500/30 shadow-inner">
+            <Wrench className="h-6 w-6" />
           </div>
         </div>
 

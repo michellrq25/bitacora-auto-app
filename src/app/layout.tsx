@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { BottomNav } from '@/frontend/components/layout/bottom-nav';
+import { ThemeProvider } from '@/frontend/components/layout/theme-provider';
 
 export const metadata: Metadata = {
   title: 'Bitácora Auto Perú | Control Vehicular & SOAT',
@@ -29,14 +30,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
-      <body className="min-h-screen bg-slate-950 text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
-        <div className="mx-auto flex min-h-screen max-w-md flex-col bg-slate-950 shadow-2xl relative">
-          <div className="flex-1 flex flex-col page-transition">
-            {children}
+    <html lang="es" className="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('bitacora_theme');
+                  if (saved === 'light') {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                  } else {
+                    document.documentElement.classList.remove('light');
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-slate-950 text-slate-100 antialiased selection:bg-sky-500 selection:text-white transition-colors duration-200">
+        <ThemeProvider>
+          <div className="mx-auto flex min-h-screen max-w-md flex-col bg-slate-950 shadow-2xl relative">
+            <div className="flex-1 flex flex-col page-transition">
+              {children}
+            </div>
+            <BottomNav />
           </div>
-          <BottomNav />
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );

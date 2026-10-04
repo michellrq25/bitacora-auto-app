@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { DocumentoConEstado, ResponsableDocumento } from '@/shared/types/documento.types';
 import { DocumentoCard } from '@/frontend/components/modules/documentos/documento-card';
 import { ModalRenovacion } from '@/frontend/components/modules/documentos/modal-renovacion';
+import { enviarAlertaManualAction } from '@/backend/actions/notificacion.actions';
 import { Car, User, BellRing, Check, Loader2 } from 'lucide-react';
 
 interface DocumentosClientViewProps {
@@ -33,19 +34,14 @@ export function DocumentosClientView({ documentosIniciales }: DocumentosClientVi
     setEnviandoTelegram(true);
     setTelegramStatus(null);
     try {
-      const res = await fetch('/api/cron-alertas');
-      const data = await res.json();
-      if (data.success) {
-        setTelegramStatus(
-          data.notificacion.enviada
-            ? '¡Reporte enviado exitosamente a Telegram!'
-            : 'Simulación ejecutada: Verificó alertas y evaluó semáforos.'
-        );
+      const res = await enviarAlertaManualAction();
+      if (res.success) {
+        setTelegramStatus(res.message || '¡Reporte enviado exitosamente a Telegram!');
       } else {
-        setTelegramStatus(`Aviso: ${data.message || data.error || 'Error al conectar'}`);
+        setTelegramStatus(`Aviso: ${res.error || 'Error al conectar'}`);
       }
     } catch {
-      setTelegramStatus('No se pudo invocar el endpoint de alertas.');
+      setTelegramStatus('No se pudo invocar el servicio de alertas.');
     } finally {
       setEnviandoTelegram(false);
     }
